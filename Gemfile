@@ -36,6 +36,7 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'bootstrap-sass-extras'
 gem 'devise-bootstrap-views'
 gem 'jquery-rails'
+#gem 'jquery_mobile_rails'
 
 gem 'devise'
 

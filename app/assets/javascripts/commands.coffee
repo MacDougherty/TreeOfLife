@@ -10,6 +10,9 @@ command = (e) ->
 	$.ajax
 		url: "commands/1",
 		method: "PATCH",
+		beforeSend: (xhr) ->
+			xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
+			return
 		dataType: "json",
 		data: data
 		error: (jqXHR, textStatus, errorThrown) ->
@@ -24,11 +27,15 @@ command = (e) ->
 	#alert(data)
 	e.preventDefault()
 	
+	
 lock = (e) ->
 	data = {"command": "lock"}
 	$.ajax
 		url: "commands/1",
 		method: "PATCH",
+		beforeSend: (xhr) ->
+			xhr.setRequestHeader 'X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')
+			return
 		dataType: "json",
 		data: data
 		error: (jqXHR, textStatus, errorThrown) ->
@@ -41,18 +48,30 @@ lock = (e) ->
 			$(".cmd").removeClass('disabled')
 	#alert(data)
 	e.preventDefault()
+	
 
 $(document).ready ->
+	flag = false
 	console.log "loaded"
 	if $("#lock}").text == "Locked"
 		console.log "locked"
 		$("#lock_div").parent.addClass("locked")
 		$(".cmd").addClass('disabled')
 	console.log "started"
-	$('.cmd').click (e) ->
+	#$(".cmd").on 'click', (e) ->
+	#	command(e)
+	#	alert('command click')
+	$(document).on 'click', ".cmd", (e) ->
+		event.stopPropagation() 
 		command(e)
-	$('#lock').click (e) ->
+		#alert('command click')
+	$("#lock").click (e) ->
 		lock(e)
+		#alert("lock click")
+	#$('.cmd').click (e) ->
+	#	command(e)
+	#$('#lock').click (e) ->
+	#	lock(e)
 	#$('#lock').bind 'touchend', (e) ->
 	#	lock(e)
 	#$(document).on 'click', ".cmd", (e) ->

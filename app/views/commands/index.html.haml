@@ -8,9 +8,9 @@
 				&nbsp;				
 		.row
 			.col-xs-6.text-center.cmd-div
-				= link_to v.humanize, "/", class: "cmd btn btn-default", id: v 
+				= link_to v.humanize, "#", class: "cmd", id: v, onclick: ''
 			.col-xs-6.text-center.cmd-div
-				= link_to @commands_array[i+1].humanize, "/", class: "cmd btn btn-default", id: v
+				= link_to @commands_array[i+1].humanize, "#", class: "cmd", id: @commands_array[i+1], onclick: ''
 	- i += 1
 .row-xs-12
 	&nbsp
