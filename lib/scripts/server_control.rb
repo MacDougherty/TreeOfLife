@@ -4,4 +4,4 @@
 
 require 'daemons'
 
-Daemons.run('lib/scripts/server.rb', ontop: false)
+Daemons.run('lib/scripts/server.rb', ontop: true)
