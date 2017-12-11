@@ -19,7 +19,7 @@ class CommandsController < ApplicationController
       @command.lock = true
       @command.save
       begin
-        n = Strip::NeoPixel.first
+        #n = Strip::NeoPixel.first
         n.skip_extract = true
         if params[:command] == "on"
           n.all_on([127,127,127])
