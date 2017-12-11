@@ -16,6 +16,10 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.command {
+	cursor: pointer;
+}
+
 .locked {
 	background-color: black;
 }
