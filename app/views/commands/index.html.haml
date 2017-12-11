@@ -1,23 +1,21 @@
-.container
-	.col-xs-12
-		= image_tag("apiotics_logo_640_300.png", class: "img-responsive center-block")
-.container
-	- i = 0
-	- @commands_array.each do |v|
-		- if i.even?
-			.row
-				.col-md-12
-					&nbsp;
-			.row
-				.col-md-12
-		.col-xs-6.text-center
-			= link_to v.humanize, "#", class: "btn btn-default command", id: v 
-		- i += 1
-	.row-xs-12
-		&nbsp
-	.row
-		.col-xs-12.text-center#lock_div
-			- if @command.lock != true
-				= link_to "Ready", "#", class: "lock", id: "lock"
-			- else
-				= link_to "Locked", "#", class: "lock", id: "lock"
+.col-xs-12
+	= image_tag("apiotics_logo_640_300.png", class: "img-responsive center-block")
+- i = 0
+- @commands_array.each do |v|
+	- if i.even?
+		.row
+			.col-md-12
+				&nbsp;
+		.row
+			.col-md-12
+	.col-xs-6.text-center
+		= link_to v.humanize, "#", class: "btn btn-default command", id: v 
+	- i += 1
+.row-xs-12
+	&nbsp
+.row
+	.col-xs-12.text-center#lock_div
+		- if @command.lock != true
+			= link_to "Ready", "#", class: "lock", id: "lock"
+		- else
+			= link_to "Locked", "#", class: "lock", id: "lock"

@@ -8,4 +8,16 @@
 		= stylesheet_link_tag		 'application', media: 'all', 'data-turbolinks-track': 'reload'
 		= javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 	%body
-		= yield
+		%nav.navbar.navbar-default
+			.container-fluid
+				%div
+					.navbar-header
+						%form.navbar-form.navbar-right
+							- if current_user
+								= link_to "Logout", destroy_user_session_path, method: "delete", class: "btn btn-default"
+							- else
+								= link_to "Login", new_user_session_path, class: "btn btn-default"
+								= link_to "Sign up", new_user_registration_path, class: "btn btn-default"
+		.main-container.container-fluid
+			= bootstrap_flash
+			= yield

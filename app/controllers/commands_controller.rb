@@ -1,4 +1,6 @@
 class CommandsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @command = Command.first
     if @command == nil

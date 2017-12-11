@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
   resources :commands, only: [:index, :update]
   scope module: :strip do 
 		resources :strips
