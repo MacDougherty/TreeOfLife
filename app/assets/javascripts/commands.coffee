@@ -23,10 +23,7 @@ command = (e) ->
 			#alert(textStatus)
 			$("#lock").text("Ready")
 			$("#lock_div").removeClass("locked")
-			$(".cmd").removeClass('disabled')
-	#alert(data)
-	e.preventDefault()
-	
+			$(".cmd").removeClass('disabled')	
 	
 lock = (e) ->
 	data = {"command": "lock"}
@@ -46,35 +43,17 @@ lock = (e) ->
 			$("#lock").text("Ready")
 			$("#lock_div").removeClass("locked")
 			$(".cmd").removeClass('disabled')
-	#alert(data)
-	e.preventDefault()
-	
 
-$(document).ready ->
-	flag = false
+$ ->
 	console.log "loaded"
+	console.log "started"
+	$(".cmd").on "click", (e) ->
+		command(e)
+		e.preventDefault()
+	$("#lock").on "click", (e) ->
+		lock(e)
+		e.preventDefault()
 	if $("#lock}").text == "Locked"
 		console.log "locked"
 		$("#lock_div").parent.addClass("locked")
 		$(".cmd").addClass('disabled')
-	console.log "started"
-	#$(".cmd").on 'click', (e) ->
-	#	command(e)
-	#	alert('command click')
-	$(document).on 'click', ".cmd", (e) ->
-		event.stopPropagation() 
-		command(e)
-		#alert('command click')
-	$("#lock").click (e) ->
-		lock(e)
-		#alert("lock click")
-	#$('.cmd').click (e) ->
-	#	command(e)
-	#$('#lock').click (e) ->
-	#	lock(e)
-	#$('#lock').bind 'touchend', (e) ->
-	#	lock(e)
-	#$(document).on 'click', ".cmd", (e) ->
-	#	command(e)
-	#$(document).on 'click', "#lock", (e) ->
-	#	lock(e)

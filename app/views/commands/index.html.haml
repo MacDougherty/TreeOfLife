@@ -1,5 +1,6 @@
-.col-xs-12
-	= image_tag("apiotics_logo_640_300.png", class: "img-responsive center-block")
+.row
+	.col-xs-12
+		= image_tag("apiotics_logo_640_300.png", class: "img-responsive center-block")
 - i = 0
 - @commands_array.each do |v|
 	- if i.even?
@@ -8,9 +9,9 @@
 				&nbsp;				
 		.row
 			.col-xs-6.text-center.cmd-div
-				= link_to v.humanize, "#", class: "cmd", id: v, onclick: ''
+				= link_to v.humanize, "#", class: "cmd", id: v
 			.col-xs-6.text-center.cmd-div
-				= link_to @commands_array[i+1].humanize, "#", class: "cmd", id: @commands_array[i+1], onclick: ''
+				= link_to @commands_array[i+1].humanize, "#", class: "cmd", id: @commands_array[i+1]
 	- i += 1
 .row-xs-12
 	&nbsp
