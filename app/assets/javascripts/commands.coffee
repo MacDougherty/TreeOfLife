@@ -2,11 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$(document).on 'turbolinks:load', ->
+$(document).ready ->
 	if $("#lock}").text == "Locked"
+		console.log "locked"
 		$("#lock_div").parent.addClass("locked")
 		$(".command").addClass('disabled')
-	$(document).on 'touchstart click', '.command', (e) ->
+	console.log "started"
+	$(document).on 'touchstart click', ".command", (e) ->
 		data = {"command": e.target.id}
 		$(".command").addClass('disabled')
 		$("#lock").text("Running...")
@@ -27,7 +29,7 @@ $(document).on 'turbolinks:load', ->
 				$(".command").removeClass('disabled')
 		#alert(data)
 		e.preventDefault()
-	$(document).on 'touchstart click', '#lock', (e) ->
+	$(document).on 'touchstart click', "#lock", (e) ->
 		data = {"command": "lock"}
 		$.ajax
 			url: "commands/1",
