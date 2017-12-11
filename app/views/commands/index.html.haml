@@ -7,9 +7,9 @@
 			.col-md-12
 				&nbsp;				
 		.row
-			.col-xs-6.text-center
+			.col-xs-6.text-center.cmd-div
 				= link_to v.humanize, "/", class: "cmd btn btn-default", id: v 
-			.col-xs-6.text-center
+			.col-xs-6.text-center.cmd-div
 				= link_to @commands_array[i+1].humanize, "/", class: "cmd btn btn-default", id: v
 	- i += 1
 .row-xs-12
