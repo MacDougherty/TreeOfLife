@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reps: 1
+  color1: MyString
+  color2: MyString
+  turn_off: false
+  space: 1
+  pattern: MyText
+
+two:
+  reps: 1
+  color1: MyString
+  color2: MyString
+  turn_off: false
+  space: 1
+  pattern: MyText
