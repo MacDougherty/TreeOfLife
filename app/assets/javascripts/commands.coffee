@@ -49,11 +49,13 @@ $(document).ready ->
 		$("#lock_div").parent.addClass("locked")
 		$(".cmd").addClass('disabled')
 	console.log "started"
-	$('.cmd').bind 'touchend', (e) ->
+	$('.cmd').click (e) ->
 		command(e)
-	$('#lock').bind 'touchend', (e) ->
+	$('#lock').click (e) ->
 		lock(e)
-	$(document).on 'click', ".cmd", (e) ->
-		command(e)
-	$(document).on 'click', "#lock", (e) ->
-		lock(e)
+	#$('#lock').bind 'touchend', (e) ->
+	#	lock(e)
+	#$(document).on 'click', ".cmd", (e) ->
+	#	command(e)
+	#$(document).on 'click', "#lock", (e) ->
+	#	lock(e)
