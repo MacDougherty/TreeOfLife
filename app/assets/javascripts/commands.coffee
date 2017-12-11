@@ -3,14 +3,15 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).ready ->
+	console.log "loaded"
 	if $("#lock}").text == "Locked"
 		console.log "locked"
 		$("#lock_div").parent.addClass("locked")
-		$(".command").addClass('disabled')
+		$(".cmd").addClass('disabled')
 	console.log "started"
-	$(document).on 'touchstart click', ".command", (e) ->
+	$(document).on 'touchstart click', ".cmd", (e) ->
 		data = {"command": e.target.id}
-		$(".command").addClass('disabled')
+		$(".cmd").addClass('disabled')
 		$("#lock").text("Running...")
 		$("#lock_div").addClass("locked")
 		$.ajax
@@ -26,7 +27,7 @@ $(document).ready ->
 				#alert(textStatus)
 				$("#lock").text("Ready")
 				$("#lock_div").removeClass("locked")
-				$(".command").removeClass('disabled')
+				$(".cmd").removeClass('disabled')
 		#alert(data)
 		e.preventDefault()
 	$(document).on 'touchstart click', "#lock", (e) ->
@@ -39,10 +40,10 @@ $(document).ready ->
 			error: (jqXHR, textStatus, errorThrown) ->
 				$("#lock").text("Ready")
 				$("#lock_div").removeClass("locked")
-				$(".command").removeClass('disabled')
+				$(".cmd").removeClass('disabled')
 			success: (data, textStatus, jqXHR) ->
 				$("#lock").text("Ready")
 				$("#lock_div").removeClass("locked")
-				$(".command").removeClass('disabled')
+				$(".cmd").removeClass('disabled')
 		#alert(data)
 		e.preventDefault()
