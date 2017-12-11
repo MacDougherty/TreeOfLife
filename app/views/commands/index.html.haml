@@ -5,11 +5,12 @@
 	- if i.even?
 		.row
 			.col-md-12
-				&nbsp;
+				&nbsp;				
 		.row
-			.col-md-12
-	.col-xs-6.text-center
-		= link_to v.humanize, "/", class: "cmd btn btn-default", id: v 
+			.col-xs-6.text-center
+				= link_to v.humanize, "/", class: "cmd btn btn-default", id: v 
+			.col-xs-6.text-center
+				= link_to @commands_array[i+1].humanize, "/", class: "cmd btn btn-default", id: v
 	- i += 1
 .row-xs-12
 	&nbsp
