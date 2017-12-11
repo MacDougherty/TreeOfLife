@@ -2,6 +2,46 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+command = (e) ->
+	data = {"command": e.target.id}
+	$(".cmd").addClass('disabled')
+	$("#lock").text("Running...")
+	$("#lock_div").addClass("locked")
+	$.ajax
+		url: "commands/1",
+		method: "PATCH",
+		dataType: "json",
+		data: data
+		error: (jqXHR, textStatus, errorThrown) ->
+			$("#lock").text("Running...")
+			#alert(textStatus)
+			#$(".command").removeClass('disabled')
+		success: (data, textStatus, jqXHR) ->
+			#alert(textStatus)
+			$("#lock").text("Ready")
+			$("#lock_div").removeClass("locked")
+			$(".cmd").removeClass('disabled')
+	#alert(data)
+	e.preventDefault()
+	
+lock = (e) ->
+	data = {"command": "lock"}
+	$.ajax
+		url: "commands/1",
+		method: "PATCH",
+		dataType: "json",
+		data: data
+		error: (jqXHR, textStatus, errorThrown) ->
+			$("#lock").text("Ready")
+			$("#lock_div").removeClass("locked")
+			$(".cmd").removeClass('disabled')
+		success: (data, textStatus, jqXHR) ->
+			$("#lock").text("Ready")
+			$("#lock_div").removeClass("locked")
+			$(".cmd").removeClass('disabled')
+	#alert(data)
+	e.preventDefault()
+
 $(document).ready ->
 	console.log "loaded"
 	if $("#lock}").text == "Locked"
@@ -9,41 +49,11 @@ $(document).ready ->
 		$("#lock_div").parent.addClass("locked")
 		$(".cmd").addClass('disabled')
 	console.log "started"
-	$(document).on 'touchstart click', ".cmd", (e) ->
-		data = {"command": e.target.id}
-		$(".cmd").addClass('disabled')
-		$("#lock").text("Running...")
-		$("#lock_div").addClass("locked")
-		$.ajax
-			url: "commands/1",
-			method: "PATCH",
-			dataType: "json",
-			data: data
-			error: (jqXHR, textStatus, errorThrown) ->
-				$("#lock").text("Running...")
-				#alert(textStatus)
-				#$(".command").removeClass('disabled')
-			success: (data, textStatus, jqXHR) ->
-				#alert(textStatus)
-				$("#lock").text("Ready")
-				$("#lock_div").removeClass("locked")
-				$(".cmd").removeClass('disabled')
-		#alert(data)
-		e.preventDefault()
-	$(document).on 'touchstart click', "#lock", (e) ->
-		data = {"command": "lock"}
-		$.ajax
-			url: "commands/1",
-			method: "PATCH",
-			dataType: "json",
-			data: data
-			error: (jqXHR, textStatus, errorThrown) ->
-				$("#lock").text("Ready")
-				$("#lock_div").removeClass("locked")
-				$(".cmd").removeClass('disabled')
-			success: (data, textStatus, jqXHR) ->
-				$("#lock").text("Ready")
-				$("#lock_div").removeClass("locked")
-				$(".cmd").removeClass('disabled')
-		#alert(data)
-		e.preventDefault()
+	$('.cmd').bind 'touchend', (e) ->
+		command(e)
+	$('#lock').bind 'touchend', (e) ->
+		lock(e)
+	$(document).on 'click', ".cmd", (e) ->
+		command(e)
+	$(document).on 'click', "#lock", (e) ->
+		lock(e)
