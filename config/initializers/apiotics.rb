@@ -9,4 +9,5 @@ Apiotics.configure do |config|
   config.handshake = true
   config.local_logging = false
   config.reduced_metadata = false
+  config.production_host = "tree-of-life.herokuapp.com"
 end
