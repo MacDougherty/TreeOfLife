@@ -54,6 +54,7 @@ class CommandsController < ApplicationController
         @command = Command.new
       end
       @command.lock = false
+      @command.save
     end
     success_hash = Hash.new
     success_hash["success"] = params[:command]
