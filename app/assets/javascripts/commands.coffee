@@ -17,13 +17,7 @@ command = (e) ->
 		data: data
 		error: (jqXHR, textStatus, errorThrown) ->
 			$("#lock").text("Running...")
-			#alert(textStatus)
-			#$(".command").removeClass('disabled')
 		success: (data, textStatus, jqXHR) ->
-			#alert(textStatus)
-			$("#lock").text("Ready")
-			$("#lock_div").removeClass("locked")
-			$(".cmd").removeClass('disabled')	
 	
 lock = (e) ->
 	data = {"command": "lock"}
@@ -45,8 +39,21 @@ lock = (e) ->
 			$(".cmd").removeClass('disabled')
 
 $ ->
-	console.log "loaded"
-	console.log "started"
+	App.alert = App.cable.subscriptions.create('CommandChannel',
+		connected: ->
+			# Called when the subscription is ready for use on the server
+			return
+		disconnected: ->
+			# Called when the subscription has been terminated by the server
+			return
+		received: (data) ->
+			console.log data
+			$("#lock").text("Ready")
+			$("#lock_div").removeClass("locked")
+			$(".cmd").removeClass('disabled')
+			# Called when there's incoming data on the websocket for this channel
+			return
+	)
 	$(".cmd").on "click", (e) ->
 		command(e)
 		e.preventDefault()
@@ -57,3 +64,4 @@ $ ->
 		console.log "locked"
 		$("#lock_div").parent.addClass("locked")
 		$(".cmd").addClass('disabled')
+	

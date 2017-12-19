@@ -18,35 +18,46 @@ class CommandsController < ApplicationController
     if @command.lock != true
       @command.lock = true
       @command.save
-      begin
-        n = Strip::NeoPixel.first
-        #n.skip_extract = true
-        if params[:command] == "on"
-          n.all_on([127,127,127])
-        elsif params[:command] == "off"
-          n.all_off
-        elsif params[:command] == "christmas"
-          n.christmas(10)
-        elsif params[:command] == "big_rainbow"
-          n.big_rainbow
-        elsif params[:command] == "dots"
-          n.moving_dots(10, 4, true, [127,127,0], [0,127,127])
-        elsif params[:command] == "lightshow"
-          n.lightshow
-        elsif params[:command] == "snake"
-          n.snake(3, 16, [127,63,255])
-        elsif params[:command] == "middle_pulse"
-          n.middle_pulse(3, [255,127,63])
-        elsif params[:command] == "patterned_snake"
-          n.patterned_snake(3, [[127,127,127], [127,0,127], [0,127,127], [127,127,0], [127,0,0], [0,127,0], [0,0,127], [63,127,31], [31,31,0], [0,63,90], [63,63,63]])
-        elsif params[:command] == "game_of_life"
-          n.game_of_life(30, [31,127,63], [30,31,60,61,90,91,120,121,150,151,180,181])
+      Thread.new do
+        begin
+          n = Strip::NeoPixel.first
+          #n.skip_extract = true
+          if params[:command] == "on"
+            n.all_on([75,40,3])
+          elsif params[:command] == "off"
+            n.all_off
+          elsif params[:command] == "christmas"
+            n.christmas(10)
+          elsif params[:command] == "big_rainbow"
+            n.big_rainbow
+          elsif params[:command] == "dots"
+            n.moving_dots(10, 4, true, [127,127,0], [0,127,127])
+          elsif params[:command] == "lightshow"
+            n.lightshow
+          elsif params[:command] == "snake"
+            n.snake(3, 16, [127,63,255])
+          elsif params[:command] == "middle_pulse"
+            n.middle_pulse(3, [[75,40,3]])
+          elsif params[:command] == "patterned_snake"
+            n.patterned_snake(3, [[127,127,127], [127,0,127], [0,127,127], [127,127,0], [127,0,0], [0,127,0], [0,0,127], [63,127,31], [31,31,0], [0,63,90], [63,63,63]])
+          elsif params[:command] == "game_of_life"
+            n.game_of_life(30, [31,127,63], [30,31,60,61,90,91,120,121,150,151,180,181])
+          end
+          ActionCable.server.broadcast "command_channel",
+            command: params[:command],
+            status: "complete"
+          @command.lock = false
+          @command.save
+        rescue => e
+          puts e
+          ActionCable.server.broadcast "command_channel",
+            command: params[:command],
+            status: "error running command"
+          @command.lock = false
+          @command.save
         end
-      rescue => e
-        puts e
+        ActiveRecord::Base.connection.close
       end
-      @command.lock = false
-      @command.save
     end
     if params[:command] == "lock"
       @command = Command.first
