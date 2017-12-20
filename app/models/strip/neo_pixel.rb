@@ -530,6 +530,7 @@ module Strip
     end
 
     def rig_for_test
+      # This is a method useful mostly for debugging and testing.
       initiate_variables
       self.skip_extract = true
       self.strip_id = 1
@@ -540,6 +541,8 @@ module Strip
     end
 
     def set_up_strip
+      # If the device has been reset, we need to reinitialize the pixels interface on the device to 240.
+      # The Apiotics gem will only send database values that have changed on save, so we change the pixels value here, and then change it back.
       self.pixels = @tree_size - 1
       self.save
       self.pixels = @tree_size
@@ -591,7 +594,7 @@ module Strip
             color = self.color_conversion(v)
             self.send("pixel_" + led_index.to_s + "=", color)
             self.save!
-            sleep(0.1)
+            sleep(0.01)
             led_index += 1
           end
       }
@@ -783,6 +786,7 @@ module Strip
     end
 
     def color_conversion(rgb_array)
+      # This method converts an array of [r,g,b] integers from 0 - 255 into a single integer which we save to the database and send to the device.
       red = rgb_array[0]
       green = rgb_array[1]
       blue = rgb_array[2]

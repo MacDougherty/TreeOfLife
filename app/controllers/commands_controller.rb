@@ -15,13 +15,17 @@ class CommandsController < ApplicationController
     if @command == nil
       @command = Command.new
     end
+    # Set a lock so that another user of the web application can't launch a different command while ours is executing.
     if @command.lock != true
       @command.lock = true
       @command.save
+      # We create a new thread so as not to time out the web request.
       Thread.new do
         begin
           n = Strip::NeoPixel.first
-          #n.skip_extract = true
+          # n.skip_extract = true
+          # Setting skip_extract to true skips sending messages to the Apiotics server for delivery to the device.
+          # See app/models/neo_pixel.rb for the details of these commands.
           if params[:command] == "on"
             n.all_on([75,40,3])
           elsif params[:command] == "off"
@@ -43,12 +47,15 @@ class CommandsController < ApplicationController
           elsif params[:command] == "game_of_life"
             n.game_of_life(30, [31,127,63], [30,31,60,61,90,91,120,121,150,151,180,181])
           end
+          # After we are done executing the command, broadcast a message so that the UI can unlock its buttons for the user.
           ActionCable.server.broadcast "command_channel",
             command: params[:command],
             status: "complete"
+          # And release the lock in the database
           @command.lock = false
           @command.save
         rescue => e
+          # Clean up if we have an error.
           puts e
           ActionCable.server.broadcast "command_channel",
             command: params[:command],
@@ -59,6 +66,7 @@ class CommandsController < ApplicationController
         ActiveRecord::Base.connection.close
       end
     end
+    # Allow the user to release the lock if need be.
     if params[:command] == "lock"
       @command = Command.first
       if @command == nil
