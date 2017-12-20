@@ -591,6 +591,7 @@ module Strip
             color = self.color_conversion(v)
             self.send("pixel_" + led_index.to_s + "=", color)
             self.save!
+            sleep(0.1)
             led_index += 1
           end
       }
@@ -690,7 +691,7 @@ module Strip
         (0..l-1).each do |i|
           self.send("pixel_" + i.to_s + "=", self.color_conversion(pattern[i%l]))
           self.save!
-          sleep(0.01)
+          sleep(0.1)
         end
 
         h = l
@@ -701,7 +702,7 @@ module Strip
           self.send("pixel_" + ((h-l)%(@tree_size)).to_s + "=", 0  )
           h += 1
           self.save!
-          sleep(0.01)
+          sleep(0.1)
         end
       end
       all_off
@@ -722,7 +723,7 @@ module Strip
           self.send("pixel_" + l.to_s + "=", self.color_conversion(color))
           self.send("pixel_" + r.to_s + "=", self.color_conversion(color))
           self.save
-          sleep(0.01)
+          sleep(0.1)
           l -= 1
           r += 1
         end
@@ -732,7 +733,7 @@ module Strip
           self.send("pixel_" + l.to_s + "=", self.color_conversion([0,0,0]))
           self.send("pixel_" + r.to_s + "=", self.color_conversion([0,0,0]))
           self.save
-          sleep(0.01)
+          sleep(0.1)
           l += 1 
           r -= 1
         end
