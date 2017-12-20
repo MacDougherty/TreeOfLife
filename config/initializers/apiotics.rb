@@ -1,7 +1,9 @@
 Apiotics.configure do |config|
   # The public and private keys are available on the Apiotics portal.  Navigate to your Hive's page and they will be towards the top
-  config.public_key = ENV['APIOTICS_PUBLIC'] #set this to an Environment variable
-  config.private_key = ENV['APIOTICS_PRIVATE'] #set this to an Environment variable
+  #config.public_key = ENV['APIOTICS_PUBLIC'] #set this to an Environment variable
+  #config.private_key = ENV['APIOTICS_PRIVATE'] #set this to an Environment variable
+  config.public_key = "fe60d438d6337dff91491fee7f3e8bc81aad973682f29b9a0c7e8beaac8fd755"
+  config.private_key = "98e71b7039abc04df7cebad7eede4421a2da78d3ca6ca9d9ce59316fcb78c9c4"
   
   # If your local comms server is accepting TCP connections, the local port is the port that it will accept connections on
   config.local_port = 8001
@@ -25,6 +27,6 @@ Apiotics.configure do |config|
   # and performance.  Turning local logging on can have a significant negative impact on performance.  Turning reduced metadata on can have
   # a small positive impact on performance.  These configuration variables should be set *before* running apiotics generators.
   config.local_logging = false
-  config.reduced_metadata = false
+  config.reduced_metadata = true
   
 end
