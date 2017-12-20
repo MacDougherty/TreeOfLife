@@ -228,7 +228,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  apiotics
+  apiotics (= 0.1.117)
   bootstrap-sass (~> 3.3.7)
   bootstrap-sass-extras
   byebug
