@@ -45,7 +45,7 @@ class CommandsController < ApplicationController
           elsif params[:command] == "patterned_snake"
             n.patterned_snake(3, [[127,127,127], [127,0,127], [0,127,127], [127,127,0], [127,0,0], [0,127,0], [0,0,127], [63,127,31], [31,31,0], [0,63,90], [63,63,63]])
           elsif params[:command] == "game_of_life"
-            n.game_of_life(30, [31,127,63], [30,31,60,61,90,91,120,121,150,151,180,181])
+            n.game_of_life(30, [31,127,63], [30,31,60,61,90,91,120,121,150,151,180,181,210,211])
           end
           # After we are done executing the command, broadcast a message so that the UI can unlock its buttons for the user.
           ActionCable.server.broadcast "command_channel",
