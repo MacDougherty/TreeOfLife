@@ -6,6 +6,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   
+  # The validate email domain method requires that users have an apiotics.com, microarx.com or websensing.com email address to register.  
+  # If you want to deploy this application and accept users with different email domains, edit the function below.
+  
   validate :email_domain      
          
   def email_domain
