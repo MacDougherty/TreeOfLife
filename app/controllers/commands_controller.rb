@@ -23,7 +23,7 @@ class CommandsController < ApplicationController
       Thread.new do
         begin
           n = Strip::NeoPixel.first
-          # n.skip_extract = true
+          n.skip_extract = true
           # Setting skip_extract to true skips sending messages to the Apiotics server for delivery to the device.
           # See app/models/neo_pixel.rb for the details of these commands.
           if params[:command] == "on"
